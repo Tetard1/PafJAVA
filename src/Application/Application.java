@@ -4,15 +4,11 @@ import Zoo.Personne.*;
 public class Application {
     public static void main(String[] args) {
 
-        // Création de personne
+        // Création d'une personne
         VisiteurMineur visiteurMineur1 = new VisiteurMineur(14, "Ben Parker");
         VisiteurMajeur visteurMajeur1 = new VisiteurMajeur(23, "Alice Dupont");
 /*
-        // Aficher les personne
-        Personne.afficheVisiteurMajeur();
-        Personne.afficheVisiteurMineur();
-
-        //Création d'animal
+        //Création d'un animal
         Animal animal1 = new Animal("lion");
         Animal animal2 = new Animal("serpent");
         Animal animal3 = new Animal("oiseaux");
@@ -67,17 +63,22 @@ public class Application {
         zoo.affecterEnclos(animal3, enclos3);
 
         // Affichage des enclos
-        hotel.afficherEnclos();
+        zoo.afficherEnclos();
 
         // Affecter du soigneur a un animal
         zoo.affecterAnimal(animal1, soigneur1)
 
         // Changement d'enclos pour un animal malade
-        hotel.changerAffectation(client1,chambre1,chambre2);
-
+        zoo.changerAffectation(client1,chambre1,chambre2);
 
         // Supression d'un enclos
-        hotel.supressionReservation(client1,chambre2);
+        zoo.supressionEnclos(enclos1);
+
+        // Supression d'un animal
+        zoo.supressionReservation(animal1);
+
+        // Supression d'un spectacle
+        zoo.supressionSpectacle(spectacle1)
 
         hotel.afficherReservations();
         hotel.afficherChambresDisponibles();
