@@ -23,12 +23,10 @@ public class Application {
         Enclos enclos = new Enclos();
 
         // Création des soigneurs
-        Soigneur paul = new Soigneur("Paul");
-        Soigneur marie = new Soigneur("Marie");
-        Soigneur lucas = new Soigneur("Lucas");
-        Soigneur emma = new Soigneur("Emma");
-        Soigneur sophie = new Soigneur("Sophie");
-        List<Soigneur> soigneurs = Arrays.asList(paul, marie, lucas, emma, sophie);
+        Soigneur ethan= new Soigneur("Ethan");
+        Soigneur gabriel = new Soigneur("Gabriel");
+        Soigneur thomas = new Soigneur("Thomas");
+        List<Soigneur> soigneurs = Arrays.asList(ethan, gabriel, thomas);
 
         // Création des vétérinaires
         Veterinaire drHouse = new Veterinaire("Dr. House");
@@ -45,11 +43,9 @@ public class Application {
         Animal baloo = new Ours("Baloo");
         List<Animal> animaux = Arrays.asList(simba, rio, kaa, dumbo, jack, marty, baloo);
 
-        zoo.ajouterSoigneur(paul);
-        zoo.ajouterSoigneur(marie);
-        zoo.ajouterSoigneur(lucas);
-        zoo.ajouterSoigneur(emma);
-        zoo.ajouterSoigneur(sophie);
+        zoo.ajouterSoigneur(ethan);
+        zoo.ajouterSoigneur(gabriel);
+        zoo.ajouterSoigneur(thomas);
         zoo.ajouterVeterinaire(drHouse);
         zoo.ajouterVeterinaire(drDolittle);
         zoo.ajouterAnimal(simba);
