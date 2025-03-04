@@ -1,87 +1,140 @@
-package Application;
-import Zoo.Personne.*;
+package application;
+
+import zoo.Zoo;
+import zoo.Enclos;
+import personnel.Soigneur;
+import personnel.Veterinaire;
+import animaux.*;
+
+import java.util.List;
+import java.util.Arrays;
+import java.util.Random;
+import java.util.Scanner;
 
 public class Application {
     public static void main(String[] args) {
-
-        // Création d'une personne
-        VisiteurMineur visiteurMineur1 = new VisiteurMineur(14, "Ben Parker");
-        VisiteurMajeur visteurMajeur1 = new VisiteurMajeur(23, "Alice Dupont");
-/*
-        //Création d'un animal
-        Animal animal1 = new Animal("lion");
-        Animal animal2 = new Animal("serpent");
-        Animal animal3 = new Animal("oiseaux");
-
-        // Création de soigneur
-        Soigneur soigneur1 = new Soigneur("Dugast","Thomas");
-        Soigneur soigneur2 = new Soigneur("Passard","Ethan");
-
-        // Création de veto
-        Veto veto1 = new Veto("Lemoine","Sebastien");
-        Veto veto2 = new Veto("Mattei","Tristan");
-
-        // Création d'enclos
-        Enclos enclos1 = new Enclos(101, "jungle");
-        Enclos enclos2 = new Enclos(102, "savane");
-        Enclos enclos3 = new Enclos(103, "volière");
-        Enclos enclos4 = new Enclos(104, "Spectacle");
-
-        // Création de spectacles
-        Spectacle spectacle1 = new spectacle(1, "lion");
-        Spectacle spectacle2 = new spectacle(2, "serpent");
-        Spectacle spectacle3 = new spectacle(3, "oiseaux");
+        Scanner scan = new Scanner(System.in);
+        Random random = new Random();
+        String fin = "";
+        int jour = 0;
 
         // Création du zoo
-        Zoo zoo = new Zoo("Le Zoo pas de flèche","Avenue de la flèche","France");
+        Zoo zoo = new Zoo();
+        Enclos enclos = new Enclos();
 
-        // Ajouter des enclos au zoo
-        zoo.ajouterEnclos(enclos1);
-        zoo.ajouterEnclos(enclos2);
-        zoo.ajouterEnclos(enclos3);
+        // Création des soigneurs
+        Soigneur paul = new Soigneur("Paul");
+        Soigneur marie = new Soigneur("Marie");
+        Soigneur lucas = new Soigneur("Lucas");
+        Soigneur emma = new Soigneur("Emma");
+        Soigneur sophie = new Soigneur("Sophie");
+        List<Soigneur> soigneurs = Arrays.asList(paul, marie, lucas, emma, sophie);
 
-        // Affichage des enclos
-        zoo.afficherEnclos();
+        // Création des vétérinaires
+        Veterinaire drHouse = new Veterinaire("Dr. House");
+        Veterinaire drDolittle = new Veterinaire("Dr. Dolittle");
+        List<Veterinaire> veterinaires = Arrays.asList(drHouse, drDolittle);
 
-        // Ajouter des spectacles
-        zoo.ajouterSpectacle(spectacle1);
-        zoo.ajouterSpectacle(spectacle2);
-        zoo.ajouterSpectacle(spectacle3);
+        // Création des animaux
+        Animal simba = new Lion("Simba");
+        Animal rio = new Oiseau("Rio");
+        Animal kaa = new Serpent("Kaa");
+        Animal dumbo = new Elephant("Dumbo");
+        Animal jack = new Kangourou("Jack");
+        Animal marty = new Zebre("Marty");
+        Animal baloo = new Ours("Baloo");
+        List<Animal> animaux = Arrays.asList(simba, rio, kaa, dumbo, jack, marty, baloo);
 
-        // Affichage des spectacle
-        zoo.afficherSpectacle();
+        zoo.ajouterSoigneur(paul);
+        zoo.ajouterSoigneur(marie);
+        zoo.ajouterSoigneur(lucas);
+        zoo.ajouterSoigneur(emma);
+        zoo.ajouterSoigneur(sophie);
+        zoo.ajouterVeterinaire(drHouse);
+        zoo.ajouterVeterinaire(drDolittle);
+        zoo.ajouterAnimal(simba);
+        zoo.ajouterAnimal(rio);
+        zoo.ajouterAnimal(kaa);
+        zoo.ajouterAnimal(dumbo);
+        zoo.ajouterAnimal(jack);
+        zoo.ajouterAnimal(marty);
+        zoo.ajouterAnimal(baloo);
+        /*
+        //Création des enclos
+        Enclos jungle = new enclos("Jungle");
+        Animal rio = new Oiseau("Rio");
+        */
+        System.out.println(" Bienvenue au zoo de Bonneval ! ");
 
-        // Réservation d'un spectacle
-        String dateDebut = "2025-06-09","10h35";
-        String dateFin = "2024-06-09","11h35";
+        while (!fin.equals("STOP")) {
+            jour++;
+            System.out.println("\n Jour " + jour + " au zoo de Bonneval ");
 
-        zoo.reserverSpectacle(soigneur1, enclos4, dateDebut, dateFin);
+            // Réinitialisation des maladies et dégradation des enclos
+            for (Animal animal : animaux) {
+                animal.resetMaladie();
+            }
+            enclos.degrader();
 
-        // Affectation des enclos
-        zoo.affecterEnclos(animal1, enclos1);
-        zoo.affecterEnclos(animal2, enclos2);
-        zoo.affecterEnclos(animal3, enclos3);
+            // Simulation d'une journée avec attribution aléatoire des soigneurs et vétérinaires
+            simulerJournee(zoo, enclos, soigneurs, veterinaires, animaux, random);
 
-        // Affichage des enclos
-        zoo.afficherEnclos();
+            // Choix du joueur
+            System.out.println("\nQue veux-tu faire ? :\n1 - Passer au jour suivant\n2 - STOP (Quitter le zoo)");
+            fin = scan.nextLine().toUpperCase();
+            while (!fin.equals("1") && !fin.equals("STOP")) {
+                System.out.println("Choix invalide, essaie encore !");
+                fin = scan.nextLine().toUpperCase();
+            }
+        }
 
-        // Affecter du soigneur a un animal
-        zoo.affecterAnimal(animal1, soigneur1)
+        System.out.println("\n Oh non, vous quittez déjà notre zoo Mocheval... À bientôt !");
+        scan.close();
+    }
 
-        // Changement d'enclos pour un animal malade
-        zoo.changerAffectation(client1,chambre1,chambre2);
+    public static void simulerJournee(Zoo zoo, Enclos enclos, List<Soigneur> soigneurs, List<Veterinaire> veterinaires,
+                                      List<Animal> animaux, Random aleatoire) {
+        System.out.println(" Début d'une nouvelle journée au zoo !");
 
-        // Supression d'un enclos
-        zoo.supressionEnclos(enclos1);
+        System.out.println("\n 6h00 - Arrivée des soigneurs !");
+        for (Soigneur soigneur : soigneurs) {
+            System.out.println(soigneur.getNom() + " est prêt pour la journée !");
+        }
 
-        // Supression d'un animal
-        zoo.supressionReservation(animal1);
+        System.out.println("\n 7h00 - Diagnostic des animaux");
+        for (Animal animal : animaux) {
+            Soigneur soigneur = soigneurs.get(aleatoire.nextInt(soigneurs.size()));
+            soigneur.diagnostiquerAnimal(animal);
+        }
 
-        // Supression d'un spectacle
-        zoo.supressionSpectacle(spectacle1)
+        System.out.println("\n 8h00 - Nourrissage des animaux");
+        for (Animal animal : animaux) {
+            Soigneur soigneur = soigneurs.get(aleatoire.nextInt(soigneurs.size()));
+            soigneur.nourrirAnimal(animal);
+        }
 
-        hotel.afficherReservations();
-        hotel.afficherChambresDisponibles();
-*/
+        System.out.println("\n 9h00 - Le zoo ouvre ses portes !");
+        System.out.println("\n 14h00 - Spectacles et animations");
+        for (Animal animal : animaux) {
+            if (!animal.estMalade()) {
+                Soigneur soigneur = soigneurs.get(aleatoire.nextInt(soigneurs.size()));
+                soigneur.animerSpectacle(animal);
+            }
+        }
+
+        System.out.println("\n 19h00 - Soins des animaux malades");
+        for (Animal animal : animaux) {
+            Veterinaire veterinaire = veterinaires.get(aleatoire.nextInt(veterinaires.size()));
+            veterinaire.soignerAnimal(animal);
+        }
+
+        System.out.println("\n 20h00 - Nettoyage et réparation des enclos");
+        if (aleatoire.nextBoolean()) {
+            soigneurs.get(aleatoire.nextInt(soigneurs.size())).nettoyerEnclos();
+            enclos.nettoyer();
+        }
+        if (aleatoire.nextInt(3) == 0) {
+            soigneurs.get(aleatoire.nextInt(soigneurs.size())).reparerEnclos(enclos);
+        }
     }
 }
